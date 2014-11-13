@@ -1,5 +1,59 @@
+body {
+	margin: 0px;
+}
+
+h1 {
+	font-family: Courier;
+}
+.container {
+	padding-top: 5%;
+	width: 100%;
+	height: 90%;
+	overflow-y: visible;
+	text-align: center;
+	background-color: #EEEEEE;
+}
+
 .game-wrapper {
-	width: 750px;
+	outline: solid 10px #999999;
+	width: 400px;
+	height: 400px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.points-display {
+	padding-top: 40px;
+	font-family: Courier;
+	font-size: 30px;
+}
+
+.game-over {
+	font-family: Courier;
+	font-weight: bold;
+	color: #FFFFFF;
+	font-size: 23px;
+	position: relative;
+	top: -45%;
+}
+
+.square {
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+
+#empty {
+	background-color: #000000;
+}
+
+#snake {
+	background-color: #008800;
+}
+
+#apple {
+	background-color: #FF0000;
+}
+
+
+

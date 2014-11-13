@@ -4,7 +4,7 @@
   }
   var View = Snakes.View = function ($el) {
     this.$el = $el;
-    this.board = new Snakes.Board();
+    this.board = new Snakes.Board($el);
     this.listener = this.bindKeyHandlers();
     this.interval = setInterval(this.step.bind(this), 100);
   };
@@ -18,10 +18,10 @@
   
   View.prototype.step = function () {
     if (!this.board.tick()) {
-      alert("You LOSE!");
+      $('div').find(".game-over").text("Game Over! ('r' to restart)")
       clearInterval(this.interval);
     }
-    this.$el.html("<pre>" + this.board.render() + "</pre>");
+    this.board.render();
   }
   
   View.prototype.handleKeyEvent = function (event) {
@@ -33,6 +33,8 @@
       this.board.snake.turn("E");
     } else if (event.keyCode === 40) {
       this.board.snake.turn("S");
+    } else if (event.keyCode === 82) {
+      location.reload();
     }
   }
 })();

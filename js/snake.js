@@ -41,18 +41,20 @@
     return new Coord(row, col);
   };
   
-  var Board = Snakes.Board = function () {
+  var Board = Snakes.Board = function ($el) {
     this.snake = new Snake();
     this.grid = Board.makeGrid();
-    this.seeded = 0
+    this.seeded = 0;
+    this.$el = $el;
+    this.points = 0;
   }
   
   Board.makeGrid = function () {
     var grid = [];
 
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 20; i++) {
       grid.push([]);
-      for (var j = 0; j < 30; j++) {
+      for (var j = 0; j < 20; j++) {
         grid[i].push(null);
       }
     }
@@ -64,24 +66,18 @@
   
   Board.prototype.render = function () {
     var megaString = "";
-    var appleCount = 0
-    console.log(this.snake.segments);
-    for (var i = 0; i < 30; i++) {
-      for (var j = 0; j < 30; j++) {
+    this.$el.empty();
+    for (var i = 0; i < 20; i++) {
+      for (var j = 0; j < 20; j++) {
         if (this.grid[i][j] === null) {
-            megaString += " . ";
+          megaString = "<div class='square' id='empty'></div>";
         } else if (this.grid[i][j] == "S"){
-          megaString += " S ";
+          megaString = "<div class='square' id='snake'></div>";
         } else if (this.grid[i][j] == "A"){
-          megaString += " A ";
-          appleCount += 1;
+          megaString = "<div class='square' id='apple'></div>";
         }
+        this.$el.append(megaString)
       }
-      megaString += '\n';
-    }
-    return megaString;
-    if (appleCount < 2) {
-        this.seeded = 0;
     }
   };
   
@@ -92,8 +88,8 @@
         this.grid[row][col] = "A"
         this.seeded += 1
       } 
-      var row = Math.floor(Math.random() * 30);
-      var col = Math.floor(Math.random() * 30);
+      var row = Math.floor(Math.random() * 20);
+      var col = Math.floor(Math.random() * 20);
     }
   }
 
@@ -101,19 +97,19 @@
     this.snake.move();
 
     var that = this;
-    if (this.snake.segments[0].row >= 0 && this.snake.segments[0].row < 30 
-     && this.snake.segments[0].col >= 0 && this.snake.segments[0].col < 30) {
-      // this.grid = Board.makeGrid();
+    if (this.snake.segments[0].row >= 0 && this.snake.segments[0].row < 20 
+     && this.snake.segments[0].col >= 0 && this.snake.segments[0].col < 20) {
       if (this.grid[this.snake.segments[0].row][this.snake.segments[0].col] === "S") {
         return false
-      } 
-      if (!(this.grid[this.snake.segments[0].row][this.snake.segments[0].col] === "A")) {
+      } else if (!(this.grid[this.snake.segments[0].row][this.snake.segments[0].col] === "A")) {
         this.snake.segments.pop();
       } else if (this.grid[this.snake.segments[0].row][this.snake.segments[0].col] === "A") {
         this.seeded = 1
+        this.points += 1
+        $('div').find(".points-display").text("Score: " + this.points)
       } 
-      for (i = 0; i < 30; i++) {
-        for (j = 0; j < 30; j++) {
+      for (i = 0; i < 20; i++) {
+        for (j = 0; j < 20; j++) {
           if (that.grid[i][j] === "S") {
             that.grid[i][j] = null
             this.snake.segments.forEach(function(segment) {

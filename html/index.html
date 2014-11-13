@@ -6,10 +6,17 @@
   <link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
 </head>
 <body>
-  <div class="game-wrapper" tabindex="0"></div>
+  <div class="container">
+    <h1>SNAKE</h1>
+    <div class="game-wrapper" tabindex="0"></div>
+    <div class="points-display">Score: 0</div>
+    <div class="game-over"></div>
+  </div>
   <script>
   (function(){
     var $board = $(".game-wrapper");
+    var $points = $(".points-display")
+    $board.focus();
     new Snakes.View($board);
   })();
     // Write your code here.
