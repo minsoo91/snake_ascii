@@ -1,0 +1,18 @@
+<html>
+<head>
+  <script src="../js/jquery-2.1.1.js"></script>
+  <script src="../js/snake.js"></script>
+  <script src="../js/snake-view.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
+</head>
+<body>
+  <div class="game-wrapper" tabindex="0"></div>
+  <script>
+  (function(){
+    var $board = $(".game-wrapper");
+    new Snakes.View($board);
+  })();
+    // Write your code here.
+  </script>
+</body>
+</html>
